@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "mgdHmzwKPvN2Uwsnnpt+Xej6g4SmyZAGht1lGBWe8RwH34sx7M2YBiSVNOpst5USkFuQRIvX+dAgJzzmR5vEtg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\cagrii\\Desktop\\Project\\WebSiteVisitorsProject4\\WebSiteVisitorsProject4.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\cagrii\\.nuget\\packages\\jquery\\3.5.1\\jquery.3.5.1.nupkg.sha512",
+    "C:\\Users\\cagrii\\.nuget\\packages\\jquery.ui.combined\\1.12.1\\jquery.ui.combined.1.12.1.nupkg.sha512",
+    "C:\\Users\\cagrii\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,137 @@
+﻿
+@model WebSiteVisitorsProject4.Models.Sites
+@{
+    ViewData["Title"] = "Web Site Visitor Project";
+
+    var visiters = 0;
+    Dictionary<string, int> visitedSitesCountry = new Dictionary<string, int>();
+    Dictionary<string, int> visitedSites = new Dictionary<string, int>();
+    Dictionary<string, int> sitesDateTime = new Dictionary<string, int>();
+
+
+
+    foreach (var item in Model.sites)
+    {
+
+        //Toplam Ziyaretçi Sayısı
+
+        visiters++;
+
+        //En çok Ziyaretçinin Geldiği Ülke
+
+        if (!visitedSitesCountry.ContainsKey(item.sitesCountry))
+        {
+            visitedSitesCountry[item.sitesCountry] = 1;
+        }
+        else
+        {
+            visitedSitesCountry[item.sitesCountry] = visitedSitesCountry[item.sitesCountry] + 1;
+        }
+
+        //Günlük Sayfa Görüntüleme Sayıları
+
+        if (!visitedSites.ContainsKey(item.sitesName))
+        {
+            visitedSites[item.sitesName] = 1;
+        }
+        else
+        {
+            visitedSites[item.sitesName] = visitedSites[item.sitesName] + 1;
+        }
+
+        //Günlük Sayfa Görüntüleme Sayıları
+
+        DateTime tempDate = DateTime.ParseExact(item.sitesDate, "d.MM.yyyy HH:mm:ss", null);
+        tempDate = tempDate.Date;
+        item.sitesDate = tempDate.ToString();
+
+        if (!sitesDateTime.ContainsKey(item.sitesDate))
+        {
+            sitesDateTime[item.sitesDate] = 1;
+        }
+        else
+        {
+            sitesDateTime[item.sitesDate] = sitesDateTime[item.sitesDate] + 1;
+        }
+    }
+
+    var maxCountryValue = visitedSitesCountry.Values.Max();
+    var maxCountryKey = visitedSitesCountry.FirstOrDefault(x => x.Value == maxCountryValue).Key;
+
+    // Tarih Aralığı Belirterek Filtreleme
+    /*
+    DateTime start = new DateTime(2020, 12, 10); //start
+    DateTime stop = new DateTime(2020, 12, 30); //finish
+    foreach (var item in sitesDateTime)
+    {
+        DateTime tDate = DateTime.ParseExact(item.Key, "d.MM.yyyy HH:mm:ss", null);
+        tDate = tDate.Date;
+        if (tDate < start || tDate > stop)
+        {
+
+            sitesDateTime.Remove(tDate.ToString());
+        }
+    }
+    */
+}
+<div>
+    <p><b>Toplam ziyaretçi sayısı:</b> @visiters</p>
+    <p><b>En çok ziyaretçinin geldiği ülkenin ziyaretçi sayısı:</b> @maxCountryValue</p>
+    <p><b>En çok ziyaretçinin geldiği ülke:</b> @maxCountryKey</p>
+    <h5>Sayfa Görüntülenme Sayıları</h5>
+
+    <table style="width:40%">
+        <tr>
+            <th>Sayfa</th>
+            <th>Görüntülenme Sayısı</th>
+        </tr>
+        <tbody>
+            @foreach (var item in visitedSites)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h5>Günlük Sayfa Görüntüleme Sayıları</h5>
+
+    <div>
+        <b>Başlangıç Tarihi</b>
+        <b style="padding-left:40px;">Bitiş Tarihi</b>
+    </div>
+    <form>
+        <div class="form-group">
+            <input type="date" value="2020-12-04" >
+            <input type="date" value="2021-01-03" >
+            <input type="submit" value="Filtrele" class="btn btn-success" />
+        </div>
+    </form>
+
+    <br />
+    <table style="width:40%">
+        <tr>
+            <th>Tarih</th>
+            <th>Ziyaretçi Sayısı</th>
+        </tr>
+        <tbody>
+            @foreach (var item in sitesDateTime)
+            {
+                <tr>
+                    <td>
+                        @item.Key
+                    </td>
+                    <td>
+                        @item.Value
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
